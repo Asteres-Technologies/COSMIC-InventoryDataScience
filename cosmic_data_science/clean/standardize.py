@@ -27,7 +27,7 @@ import os
 from sqlalchemy import desc
 
 
-CLEAN_DESCRIPTION = re.compile(r'^[\w\s,.-]+$') # Strip out any non-alphanumeric characters except for spaces, commas, periods, and hyphens
+CLEAN_DESCRIPTION = re.compile(r'[^\w\s,.\-]') # Strip out any non-alphanumeric characters except for spaces, commas, periods, and hyphens
 
 
 def clean_taxonomy_labels(label: str) -> str:
@@ -135,6 +135,8 @@ def standardize_inventory_data(file_path: str) -> DataFrame:
         Returns:
         - str: The string with invalid characters removed.
         """ 
+        if not isinstance(desc, str):
+            return 'No Description Available'
         cleaned_text = CLEAN_DESCRIPTION.sub('', desc)
         return cleaned_text.strip() if cleaned_text.strip() else 'No Description Available'
     
