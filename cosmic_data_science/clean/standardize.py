@@ -91,8 +91,10 @@ def standardize_inventory_data(file_path: str) -> DataFrame:
         longest = max(categories, key=len)
         return longest
     
-    for col in ['Level One Category', 'Level Two Category', 'Level Three Category']:
-        df[col] = df.apply(longest_tech_category, axis=1)
+    taxonomy_values = df.apply(longest_tech_category, axis=1)
+    df['Level One Category'] = taxonomy_values
+    df['Level Two Category'] = taxonomy_values
+    df['Level Three Category'] = taxonomy_values
 
     def longest_functional_category(row):
         """
@@ -108,8 +110,8 @@ def standardize_inventory_data(file_path: str) -> DataFrame:
         longest = max(categories, key=len)
         return longest
     
-    for col in ['Level One Functional Category', 'Level Two Functional Category']:
-        df[col] = df.apply(longest_functional_category, axis=1)
+    df['Level One Functional Category'] = df.apply(longest_functional_category, axis=1)
+    df['Level Two Functional Category'] = df.apply(longest_functional_category, axis=1)
 
     # Handle missing values for tech name and producer
     df['Technology Name'].fillna('Unknown Technology Name', inplace=True)
