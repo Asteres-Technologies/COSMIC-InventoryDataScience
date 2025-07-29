@@ -1,3 +1,4 @@
+import cosmic_data_science.clean.standardize as standardize
 import streamlit
 
 streamlit.set_page_config(
@@ -6,8 +7,6 @@ streamlit.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
 )
-
-import cosmic_data_science.clean.standardize as standardize
 
 def main():
     streamlit.title("COSMIC Inventory Data Science")
